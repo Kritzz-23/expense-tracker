@@ -1,6 +1,7 @@
-from sqlmodel import SQLModel, Field, Relationship
-from typing import Optional, List
 from datetime import datetime
+from typing import List, Optional
+
+from sqlmodel import Field, Relationship, SQLModel
 
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -8,6 +9,7 @@ class User(SQLModel, table=True):
     hashed_password: str
 
     expenses: List["Expense"] = Relationship(back_populates="user")
+    budget: Optional["Budget"] = Relationship(back_populates="user")
 
 class Expense(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -18,3 +20,11 @@ class Expense(SQLModel, table=True):
     
     user_id: int = Field(foreign_key="user.id")
     user: Optional[User] = Relationship(back_populates="expenses")
+
+
+class Budget(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    monthly_limit: float
+
+    user_id: int = Field(foreign_key="user.id", unique=True)
+    user: Optional[User] = Relationship(back_populates="budget")

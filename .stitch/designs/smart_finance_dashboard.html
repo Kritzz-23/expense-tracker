@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Finance Assistant - Track Smarter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#f0dbff",
+                      "secondary": "#4cd7f6",
+                      "surface-dim": "#0c1324",
+                      "on-primary-fixed-variant": "#6900b3",
+                      "tertiary-fixed": "#6ffbbe",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "error-container": "#93000a",
+                      "on-tertiary-fixed": "#002113",
+                      "on-background": "#dce1fb",
+                      "inverse-primary": "#842bd2",
+                      "on-surface-variant": "#cfc2d6",
+                      "error": "#ffb4ab",
+                      "on-error-container": "#ffdad6",
+                      "on-surface": "#dce1fb",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "secondary-fixed": "#acedff",
+                      "surface-container": "#191f31",
+                      "surface-bright": "#33394c",
+                      "surface-container-low": "#151b2d",
+                      "on-secondary-container": "#00424e",
+                      "on-tertiary": "#003824",
+                      "on-primary-fixed": "#2c0051",
+                      "outline-variant": "#4d4354",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "background": "#0c1324",
+                      "tertiary": "#4edea3",
+                      "on-primary": "#490080",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "surface": "#0c1324",
+                      "surface-container-high": "#23293c",
+                      "surface-tint": "#ddb7ff",
+                      "outline": "#988d9f",
+                      "primary-fixed-dim": "#ddb7ff",
+                      "on-secondary": "#003640",
+                      "surface-container-highest": "#2e3447",
+                      "surface-container-lowest": "#070d1f",
+                      "inverse-surface": "#dce1fb",
+                      "on-secondary-fixed": "#001f26",
+                      "surface-variant": "#2e3447",
+                      "inverse-on-surface": "#2a3043",
+                      "secondary-container": "#03b5d3",
+                      "tertiary-container": "#00a572",
+                      "on-tertiary-container": "#00311f",
+                      "primary": "#ddb7ff",
+                      "on-primary-container": "#400071",
+                      "primary-container": "#b76dff",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+      </script>
+<style>
+        .glass {
+            background: rgba(25, 31, 49, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(152, 141, 159, 0.15);
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(221, 183, 255, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+      </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<nav class="fixed top-0 w-full z-50 bg-[#0c1324]/80 backdrop-blur-xl border-b border-purple-500/15 h-20 flex justify-between items-center px-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<span class="text-2xl font-headline font-bold bg-gradient-to-br from-[#ddb7ff] to-[#b76dff] bg-clip-text text-transparent tracking-tight">SMART FINANCE ASSISTANT</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8">
+<a class="text-[#ddb7ff] border-b-2 border-[#ddb7ff] pb-1 font-headline font-bold" href="#">Portfolio</a>
+<a class="text-slate-400 hover:text-white transition-colors font-headline font-bold" href="#">Insights</a>
+<a class="text-slate-400 hover:text-white transition-colors font-headline font-bold" href="#">Treasury</a>
+</div>
+<div class="flex items-center gap-4 border-l border-outline-variant/30 pl-6">
+<button class="p-2 rounded-full hover:bg-white/5 transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant/30 hover:bg-white/5 transition-all text-sm font-medium">
+<span class="material-symbols-outlined text-lg">logout</span>
+                    Logout
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-8 max-w-[1600px] mx-auto">
+<section class="mb-16">
+<h1 class="text-6xl md:text-8xl font-headline font-bold tracking-tighter mb-4">
+                Track <span class="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent">Smarter.</span>
+</h1>
+<p class="text-on-surface-variant text-xl max-w-2xl font-light leading-relaxed">
+                Unlock the next generation of wealth management. Our AI analyzes every transaction to provide institutional-grade insights for your personal growth.
+            </p>
+</section>
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-12 glass p-6 rounded-lg flex items-center justify-between border-l-4 border-primary">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">celebration</span>
+<div>
+<h4 class="font-bold text-on-surface">Weekly Summary is ready</h4>
+<p class="text-sm text-on-surface-variant">Your spending is 12% lower than last week. Great job!</p>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="col-span-12 md:col-span-4 glass p-8 rounded-lg group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-medium text-on-surface-variant tracking-wider uppercase">Visible Spend</span>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-2">$4,280.50</div>
+<div class="flex items-center gap-2 text-tertiary text-sm">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<span>4.2% from last month</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 glass p-8 rounded-lg group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-medium text-on-surface-variant tracking-wider uppercase">Top Category</span>
+<span class="material-symbols-outlined text-primary">restaurant</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-2">Dining Out</div>
+<div class="text-on-surface-variant text-sm">$840.00 total this period</div>
+</div>
+<div class="col-span-12 md:col-span-4 glass p-8 rounded-lg group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-medium text-on-surface-variant tracking-wider uppercase">Month Forecast</span>
+<span class="material-symbols-outlined text-tertiary">query_stats</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-2">$6,120.00</div>
+<div class="text-on-surface-variant text-sm">Estimated based on AI patterns</div>
+</div>
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="glass p-8 rounded-lg">
+<h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+                        Log Expense
+                    </h3>
+<form class="space-y-6">
+<div>
+<label class="block text-xs font-medium text-on-surface-variant mb-2 uppercase tracking-widest">Amount</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-highest border-none rounded-md py-4 pl-8 pr-4 text-xl font-headline focus:ring-2 focus:ring-primary transition-all" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 px-1 text-xs glass rounded-md hover:bg-primary/20 transition-all" type="button">Food</button>
+<button class="py-2 px-1 text-xs glass rounded-md hover:bg-primary/20 transition-all" type="button">Travel</button>
+<button class="py-2 px-1 text-xs glass rounded-md hover:bg-primary/20 transition-all" type="button">Shopping</button>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-bold py-4 rounded-xl hover:shadow-[0_0_30px_rgba(221,183,255,0.3)] transition-all active:scale-95" type="submit">
+                            Log Expense
+                        </button>
+</form>
+</div>
+<div class="glass p-8 rounded-lg">
+<h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">track_changes</span>
+                        Budget Tracker
+                    </h3>
+<div class="space-y-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Monthly Limit</span>
+<span class="font-bold">$5,000</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden">
+<div class="bg-gradient-to-r from-secondary to-primary h-full w-[85%] rounded-full"></div>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>$4,280 spent</span>
+<span>$720 remaining</span>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="glass p-8 rounded-lg flex-1">
+<h3 class="text-xl font-headline font-bold mb-8">Spending Trend</h3>
+<div class="h-48 flex items-end justify-between gap-2">
+<div class="w-full bg-secondary/10 rounded-t-md h-[40%] relative group">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+<div class="w-full bg-secondary/10 rounded-t-md h-[65%] relative group">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+<div class="w-full bg-secondary/10 rounded-t-md h-[55%] relative group">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+<div class="w-full bg-secondary/10 rounded-t-md h-[90%] relative group">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+<div class="w-full bg-secondary/10 rounded-t-md h-[75%] relative group">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+<div class="w-full bg-secondary/10 rounded-t-md h-[45%] relative group">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+<div class="w-full bg-secondary/20 rounded-t-md h-[80%] border-t-2 border-secondary relative group">
+<div class="absolute inset-0 bg-secondary opacity-20 group-hover:opacity-40 transition-opacity rounded-t-md"></div>
+</div>
+</div>
+</div>
+<div class="glass p-8 rounded-lg flex-1 flex flex-col justify-center items-center relative overflow-hidden">
+<h3 class="text-xl font-headline font-bold self-start mb-4">Overall Breakdown</h3>
+<div class="relative w-48 h-48 rounded-full border-[16px] border-surface-container-highest flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[16px] border-transparent border-t-primary border-r-secondary border-b-tertiary animate-spin-slow" style="border-radius: 50%;"></div>
+<div class="text-center">
+<div class="text-2xl font-bold font-headline">$12,401</div>
+<div class="text-[10px] text-on-surface-variant tracking-widest uppercase">Total Assets</div>
+</div>
+</div>
+<div class="mt-8 flex gap-6">
+<div class="flex items-center gap-2 text-xs">
+<div class="w-2 h-2 rounded-full bg-primary"></div> Cash
+                        </div>
+<div class="flex items-center gap-2 text-xs">
+<div class="w-2 h-2 rounded-full bg-secondary"></div> Crypto
+                        </div>
+<div class="flex items-center gap-2 text-xs">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div> Stocks
+                        </div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-3 flex flex-col gap-6">
+<div class="glass p-8 rounded-lg flex-1">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-headline font-bold">Recent Activity</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">search</span>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-md bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</div>
+<div class="flex-1">
+<div class="text-sm font-bold">Apple Store</div>
+<div class="text-[10px] text-on-surface-variant uppercase">Yesterday • 2:15 PM</div>
+</div>
+<div class="text-sm font-bold text-error">-$299.00</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-md bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">flight</span>
+</div>
+<div class="flex-1">
+<div class="text-sm font-bold">Delta Air</div>
+<div class="text-[10px] text-on-surface-variant uppercase">2 Days ago</div>
+</div>
+<div class="text-sm font-bold text-error">-$450.20</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-md bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">work</span>
+</div>
+<div class="flex-1">
+<div class="text-sm font-bold">Salary Credit</div>
+<div class="text-[10px] text-on-surface-variant uppercase">3 Days ago</div>
+</div>
+<div class="text-sm font-bold text-tertiary">+$5,200.00</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-sm text-secondary hover:text-secondary-fixed transition-colors font-medium border-t border-outline-variant/10">View All Transactions</button>
+</div>
+<div class="bg-gradient-to-br from-primary-container/20 to-surface-container glass p-8 rounded-lg border border-primary/20">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="text-lg font-headline font-bold text-primary-fixed-dim">AI Insights</h3>
+</div>
+<p class="text-sm leading-relaxed text-on-surface/80 mb-6 italic">
+                        "Your subscription to 'Cloud Storage' has increased by $5.99. We found a similar plan for 40% less. Would you like to switch?"
+                    </p>
+<div class="bg-primary/20 rounded-lg p-3 text-xs flex items-center justify-between">
+<span class="font-bold">Recurring Alert</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button class="fixed bottom-10 right-10 w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed shadow-[0_10px_40px_rgba(183,109,255,0.4)] flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-50 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">chat_bubble</span>
+</button>
+</body></html>
