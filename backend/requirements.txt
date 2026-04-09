@@ -10,3 +10,5 @@ python-multipart
 groq
 pydantic
 python-dotenv
+passlib[bcrypt]
+PyJWT
