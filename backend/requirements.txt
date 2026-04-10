@@ -13,3 +13,4 @@ python-dotenv
 passlib
 bcrypt==4.3.0
 PyJWT
+psycopg2-binary>=2.9.0
