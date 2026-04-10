@@ -4,7 +4,8 @@ myvenv/
 env/
 .env
 .env.*
-
+.venv/
+Report/
 # Python
 __pycache__/
 *.py[cod]
