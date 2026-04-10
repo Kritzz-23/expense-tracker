@@ -1,0 +1,15 @@
+{
+    "name": "projects/4959929257420946713",
+    "projectId": "4959929257420946713",
+    "title": "Expense Tracker Landing",
+    "visibility": "PRIVATE",
+    "projectType": "PROJECT_DESIGN",
+    "origin": "STITCH",
+    "deviceType": "DESKTOP",
+    "screens": {
+        "index": {
+            "id": "2827d52948a04270866c5a1afbf205f2",
+            "sourceScreen": "projects/4959929257420946713/screens/2827d52948a04270866c5a1afbf205f2"
+        }
+    }
+}

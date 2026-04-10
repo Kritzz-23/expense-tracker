@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Finpay | Atmospheric Precision in Finance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#edeeef",
+                    "surface-dim": "#d9dadb",
+                    "on-secondary-fixed": "#001f26",
+                    "surface": "#f8f9fa",
+                    "secondary": "#00687a",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "outline": "#6c7a71",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#002113",
+                    "on-primary-container": "#00422b",
+                    "tertiary-fixed": "#ffdad7",
+                    "primary": "#006c49",
+                    "on-tertiary-fixed": "#410005",
+                    "background": "#f8f9fa",
+                    "on-background": "#191c1d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "outline-variant": "#bbcabf",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "primary-fixed-dim": "#4edea3",
+                    "tertiary-container": "#fc7c78",
+                    "surface-tint": "#006c49",
+                    "secondary-fixed": "#acedff",
+                    "surface-bright": "#f8f9fa",
+                    "tertiary": "#a43a3a",
+                    "on-surface-variant": "#3c4a42",
+                    "on-secondary-fixed-variant": "#004e5c",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "surface-container-highest": "#e1e3e4",
+                    "secondary-container": "#57dffe",
+                    "on-tertiary-container": "#711419",
+                    "primary-fixed": "#6ffbbe",
+                    "surface-variant": "#e1e3e4",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "on-primary-fixed-variant": "#005236",
+                    "inverse-on-surface": "#f0f1f2",
+                    "inverse-primary": "#4edea3",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-container": "#006172",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-container": "#10b981",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #191c1d; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { backdrop-filter: blur(20px); border-bottom: none; }
+        .hero-gradient { background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.08), transparent 40%); }
+        .pricing-card-plus { background: linear-gradient(135deg, #f8f9fa 0%, #e1e3e4 100%); }
+        .pricing-card-premium { background: linear-gradient(135deg, #006c49 0%, #004e5c 100%); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f8f9fa]/80 backdrop-blur-xl transition-all duration-300">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold tracking-tighter text-on-surface font-manrope">The Fluid Architect</div>
+<div class="hidden md:flex space-x-8">
+<a class="text-emerald-600 border-b-2 border-emerald-500 pb-1 font-manrope tracking-tight text-sm font-semibold hover:text-emerald-500 transition-colors duration-300" href="#">Features</a>
+<a class="text-slate-600 font-manrope tracking-tight text-sm font-semibold hover:text-emerald-500 transition-colors duration-300" href="#">Reserve</a>
+<a class="text-slate-600 font-manrope tracking-tight text-sm font-semibold hover:text-emerald-500 transition-colors duration-300" href="#">Pricing</a>
+<a class="text-slate-600 font-manrope tracking-tight text-sm font-semibold hover:text-emerald-500 transition-colors duration-300" href="#">Insights</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 font-manrope tracking-tight text-sm font-semibold hover:text-emerald-500 transition-all duration-300">Log In</button>
+<button class="bg-primary text-white px-5 py-2 rounded-xl font-manrope tracking-tight text-sm font-semibold active:scale-95 transition-transform">Open Account</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-20 px-8 hero-gradient overflow-hidden">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+<div class="w-full md:w-1/2 space-y-8">
+<h1 class="text-6xl md:text-7xl font-extrabold font-manrope tracking-tight text-on-surface leading-[1.1]">
+                    Get paid early <span class="text-primary-container">save</span> automatically.
+                </h1>
+<p class="text-xl text-on-surface-variant max-w-lg font-body leading-relaxed">
+                    Experience the future of personal liquidity. Streamline your earnings and automate your wealth with atmospheric precision.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 items-center">
+<div class="w-full sm:w-80 relative">
+<input class="w-full px-6 py-4 rounded-xl bg-surface-container-lowest border-none shadow-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline text-on-surface" placeholder="Enter your email" type="email"/>
+</div>
+<button class="w-full sm:w-auto px-8 py-4 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform hover:shadow-lg">
+                        Get Started
+                    </button>
+</div>
+<div class="pt-12 flex flex-wrap gap-8 items-center opacity-50 grayscale transition-all hover:grayscale-0">
+<img alt="Klarna" class="h-6" data-alt="minimalist klarna brand logo in monochrome grey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpb_7WJzDdztFKObw37WJOipOICtODWElz5lu-OdXbCUasuX6kEjVkolDJ-mhKLpDRqpnA4UUmJ063CkbJ3xmWs3Zw1Lc53RSXjFToYd9ffKfkZf1hGVJT3B-X7oziwR_Dc2-mt0IJHtzq6MN83KzJmyViFucGYDo0ia9Er2vcMpYkZJHkoYAsw1iR-XvtxscK11UuaW0wgQOOD5rY6Owcq4Nx9s8XI8ih6o0QblJvtgKRkZMY2a7QTJD7rGpDKusEB_--j6yAx8E"/>
+<img alt="Coinbase" class="h-6" data-alt="minimalist coinbase brand logo in monochrome grey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTPbp3LiLZ4zGAay6cA7YQUDj7zgWBb6jPIHeju7dWcBxYJlFTkSit7YZoaKQUI5ZBC0xxnYPgkRPGhOPHaTM-7liTqfRqOBRuukLJSlNjdAcRYXTK8rb5SCKYcV3ef8MUDla29HL8_R-zrXgvl_CA8ZMdfClWbr4m5xw20p4wm4ujkhpHIvZz_5hgof6Su6i9KS9n55nET_tuZZD4EZSiHfCeWcKCFaX_BooMDUG_HUre2dUpDun-CQZy1v0oucqBkJAG3pPj7ww"/>
+<img alt="Instacart" class="h-6" data-alt="minimalist instacart brand logo in monochrome grey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADntyQaqESmEA_H4GyIXVynS1wTEVPfoVX33FqvUT0EiwSZw50cGR9r4n2NzLDIB3-BoAcE8J5X24nnUcrz1PuQHKwBk4QiniRfPGjtEdeSaj7eEG_Fpz8WRVM6txZTSdC_T7h0wWQZw-4wiIq7r5i5SL7bTTK46vT2sKodjLTe0lOWgqLd9V7OACcAtJZ1fInCLV6Me87saNpWX_ajBu-U3O4c6x41jM5xEW1dLlUayJpAJH3PTxDGSsnj5nXZow-t6U1aNsDiSE"/>
+</div>
+</div>
+<div class="w-full md:w-1/2 relative">
+<div class="relative z-10 bg-surface-container-lowest rounded-3xl shadow-2xl overflow-hidden p-6 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-8">
+<div>
+<span class="text-xs uppercase font-bold tracking-widest text-outline">Dipa Inhouse Credit</span>
+<h3 class="text-2xl font-bold font-manrope text-on-surface">Finpay Gold</h3>
+</div>
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+</div>
+</div>
+<img alt="Credit Card" class="w-full rounded-2xl mb-6 shadow-lg" data-alt="premium metallic dark emerald credit card with minimalist geometric patterns soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsAVAuj7ClhGLID2J7KC5PLeB_lxjNSXD_x_r_FM7EwgWRJztgeTTsFihNZKBitUzmsLytA8mlkUcdDL-1ZbULjMVXLUiZoDeGLWygglhl-VIQTHVr1IeOeqpBuv1ooRtaw29MhpgFREQIRHEf4CbL4LESsB-lD5bFk9YAZwAO80l0Sph44k96g4BMj0BVn7YGo0vpzCVP9wjOGtxY2TOlp0Pde3liBRDpRet5jPyxRuagXXSEieOiLkHK4TkWAxnhR05LaTJ8YlU"/>
+<div class="space-y-4">
+<div class="flex justify-between items-center p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">receipt_long</span>
+<div>
+<p class="text-sm font-bold text-on-surface">Dynamic Invoice #8292</p>
+<p class="text-xs text-outline">Processing Early Payout</p>
+</div>
+</div>
+<span class="text-primary font-bold">+$2,400.00</span>
+</div>
+</div>
+</div>
+<!-- Abstract blobs for depth -->
+<div class="absolute -top-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary/5 rounded-full blur-3xl -z-10"></div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-24 px-8 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20 space-y-4">
+<h2 class="text-4xl md:text-5xl font-extrabold font-manrope tracking-tight text-on-surface">
+                    Experience that grows with your scale.
+                </h2>
+<div class="h-1.5 w-24 bg-primary-container mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group bg-surface-container-lowest p-10 rounded-3xl transition-all duration-300 hover:-translate-y-2">
+<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center mb-8 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">send_money</span>
+</div>
+<h3 class="text-xl font-bold font-manrope mb-4 text-on-surface">Free transfers</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Move capital across the globe with zero friction. Our architecture prioritizes speed without the premium price tag.
+                    </p>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-lowest p-10 rounded-3xl transition-all duration-300 hover:-translate-y-2">
+<div class="w-14 h-14 rounded-2xl bg-secondary/5 flex items-center justify-center mb-8 group-hover:bg-secondary/10 transition-colors">
+<span class="material-symbols-outlined text-secondary text-3xl">account_balance_wallet</span>
+</div>
+<h3 class="text-xl font-bold font-manrope mb-4 text-on-surface">Multiple account</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Segment your holdings with specialized sub-accounts designed for specific financial goals and operational scales.
+                    </p>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container-lowest p-10 rounded-3xl transition-all duration-300 hover:-translate-y-2">
+<div class="w-14 h-14 rounded-2xl bg-tertiary/5 flex items-center justify-center mb-8 group-hover:bg-tertiary/10 transition-colors">
+<span class="material-symbols-outlined text-tertiary text-3xl">verified_user</span>
+</div>
+<h3 class="text-xl font-bold font-manrope mb-4 text-on-surface">Unmatched security</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Military-grade encryption coupled with biometric verification keeps your architectural financial data under lock and key.
+                    </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Section -->
+<section class="py-24 px-8 bg-surface">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+<!-- Main Bento Card -->
+<div class="md:col-span-8 bg-on-background rounded-3xl p-12 text-white relative overflow-hidden flex flex-col justify-between">
+<div class="relative z-10">
+<span class="bg-primary/20 text-primary-fixed-dim px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Growth Metric</span>
+<h2 class="text-5xl font-black font-manrope mt-6">3k+ Businesses</h2>
+<p class="text-slate-400 mt-4 text-lg max-w-md">Trusting our fluid ecosystem to power their daily financial architecture.</p>
+</div>
+<div class="relative z-10 grid grid-cols-2 gap-8 mt-12">
+<div>
+<div class="text-3xl font-bold">99.9%</div>
+<div class="text-slate-500 text-sm">Uptime Precision</div>
+</div>
+<div>
+<div class="text-3xl font-bold">120+</div>
+<div class="text-slate-500 text-sm">Active Countries</div>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-20">
+<span class="material-symbols-outlined text-[300px] leading-none">corporate_fare</span>
+</div>
+</div>
+<!-- Instant Withdraw -->
+<div class="md:col-span-4 bg-primary-container/10 rounded-3xl p-8 flex flex-col justify-center border border-primary-container/20">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">bolt</span>
+</div>
+<h3 class="text-2xl font-bold font-manrope">Instant Withdraw</h3>
+</div>
+<p class="text-on-surface-variant mb-6">Access your funds in milliseconds. No waiting, no friction, just liquidity.</p>
+<div class="h-24 w-full bg-surface-container-lowest rounded-xl flex items-center px-4 relative overflow-hidden">
+<div class="flex-1 space-y-2">
+<div class="h-2 w-2/3 bg-primary-container/20 rounded-full"></div>
+<div class="h-2 w-1/2 bg-primary-container/40 rounded-full"></div>
+</div>
+<div class="w-12 h-12 bg-primary-container/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Volatility Graph -->
+<div class="md:col-span-12 bg-surface-container-low rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 border border-outline-variant/10">
+<div class="space-y-4 max-w-md">
+<h3 class="text-2xl font-bold font-manrope">No asset volatility</h3>
+<p class="text-on-surface-variant">Our algorithmic stability ensures your balance stays predictable, regardless of market turbulence.</p>
+</div>
+<div class="flex-1 w-full h-40 flex items-end gap-2 px-4">
+<div class="flex-1 bg-primary/20 h-[30%] rounded-t-lg transition-all hover:h-[60%]"></div>
+<div class="flex-1 bg-primary/30 h-[45%] rounded-t-lg transition-all hover:h-[70%]"></div>
+<div class="flex-1 bg-primary/40 h-[40%] rounded-t-lg transition-all hover:h-[80%]"></div>
+<div class="flex-1 bg-primary/50 h-[60%] rounded-t-lg transition-all hover:h-[90%]"></div>
+<div class="flex-1 bg-primary-container h-[75%] rounded-t-lg transition-all hover:h-[100%]"></div>
+<div class="flex-1 bg-primary-container h-[90%] rounded-t-lg transition-all hover:h-[95%]"></div>
+<div class="flex-1 bg-primary-container h-[100%] rounded-t-lg"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dark Accent Section -->
+<section class="py-32 px-8 bg-[#0f2b33] text-white">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row gap-20 items-center">
+<div class="lg:w-1/2 space-y-8">
+<h2 class="text-5xl md:text-6xl font-black font-manrope leading-tight">
+                        Maximize your returns with a <span class="text-primary-fixed-dim italic">Reserve</span> account.
+                    </h2>
+<p class="text-slate-400 text-xl font-body leading-relaxed">
+                        The architecture of wealth is built on compounding. Let your idle capital work harder in our secure vaults.
+                    </p>
+<div class="pt-8">
+<button class="px-8 py-4 border-2 border-primary-fixed-dim text-primary-fixed-dim rounded-xl font-bold hover:bg-primary-fixed-dim hover:text-on-secondary-fixed transition-all duration-300">
+                            Learn about Reserve
+                        </button>
+</div>
+</div>
+<div class="lg:w-1/2 w-full space-y-6">
+<!-- Step 1 -->
+<div class="flex gap-6 p-8 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+<div class="text-4xl font-black text-primary-fixed-dim opacity-40">01</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Open account</h4>
+<p class="text-slate-400">Seamless onboarding in under 60 seconds with biometric ID.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-6 p-8 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+<div class="text-4xl font-black text-primary-fixed-dim opacity-40">02</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Transfer money</h4>
+<p class="text-slate-400">Move funds from any external bank with zero fees.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-6 p-8 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+<div class="text-4xl font-black text-primary-fixed-dim opacity-40">03</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Watch balance grow</h4>
+<p class="text-slate-400">Earn daily interest with real-time architectural visualization.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats & Pricing -->
+<section class="py-24 px-8 bg-surface">
+<div class="max-w-7xl mx-auto">
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+<div class="text-center p-8 bg-surface-container-low rounded-3xl">
+<div class="text-5xl font-black text-primary mb-2 font-manrope">24%</div>
+<div class="text-on-surface-variant font-bold tracking-widest uppercase text-xs">Revenue Increase</div>
+</div>
+<div class="text-center p-8 bg-surface-container-low rounded-3xl">
+<div class="text-5xl font-black text-primary mb-2 font-manrope">180K</div>
+<div class="text-on-surface-variant font-bold tracking-widest uppercase text-xs">Annual Users</div>
+</div>
+<div class="text-center p-8 bg-surface-container-low rounded-3xl">
+<div class="text-5xl font-black text-primary mb-2 font-manrope">10+</div>
+<div class="text-on-surface-variant font-bold tracking-widest uppercase text-xs">Months Average Growth</div>
+</div>
+</div>
+<!-- Pricing -->
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Plus -->
+<div class="pricing-card-plus p-12 rounded-3xl border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+<div>
+<h3 class="text-2xl font-bold mb-2">Plus</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-black">£2.99</span>
+<span class="text-on-surface-variant text-sm">/mo</span>
+</div>
+<ul class="space-y-4 mb-12">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-xl">check</span>
+                                Advanced Analytics
+                            </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-xl">check</span>
+                                Custom Invoices
+                            </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-xl">check</span>
+                                Priority Support
+                            </li>
+</ul>
+</div>
+<button class="w-full py-4 bg-on-background text-white font-bold rounded-xl active:scale-95 transition-transform">Start Free Trial</button>
+</div>
+<!-- Premium -->
+<div class="pricing-card-premium p-12 rounded-3xl text-white flex flex-col justify-between shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="bg-white/20 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Popular</span>
+</div>
+<div class="relative z-10">
+<h3 class="text-2xl font-bold mb-2">Premium</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-black">£6.99</span>
+<span class="text-white/60 text-sm">/mo</span>
+</div>
+<ul class="space-y-4 mb-12">
+<li class="flex items-center gap-3 text-white/90">
+<span class="material-symbols-outlined text-primary-fixed-dim text-xl">check</span>
+                                Unlimited Reserves
+                            </li>
+<li class="flex items-center gap-3 text-white/90">
+<span class="material-symbols-outlined text-primary-fixed-dim text-xl">check</span>
+                                Global Scale Tax Tools
+                            </li>
+<li class="flex items-center gap-3 text-white/90">
+<span class="material-symbols-outlined text-primary-fixed-dim text-xl">check</span>
+                                Dedicated Manager
+                            </li>
+</ul>
+</div>
+<button class="w-full py-4 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform relative z-10">Get Premium</button>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-8">
+<div class="max-w-7xl mx-auto">
+<div class="bg-[#004e5c] rounded-[40px] p-16 md:p-24 text-center text-white relative overflow-hidden">
+<div class="relative z-10 max-w-2xl mx-auto space-y-8">
+<h2 class="text-5xl md:text-6xl font-black font-manrope leading-tight">Ready to architect your wealth?</h2>
+<p class="text-emerald-100/70 text-xl">Join 3,000+ businesses scaling their financial operations with Atmospheric Precision.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+<button class="px-10 py-5 bg-primary-container text-on-primary-container font-bold rounded-2xl text-lg hover:shadow-xl transition-all active:scale-95">Open Your Account</button>
+<button class="px-10 py-5 bg-white/10 text-white font-bold rounded-2xl text-lg hover:bg-white/20 transition-all border border-white/20">Speak to Sales</button>
+</div>
+</div>
+<!-- Abstract Design Elements -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary-container/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary-fixed/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#191c1d] dark:bg-[#000000]">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full max-w-7xl mx-auto">
+<div class="mb-12 md:mb-0 space-y-4">
+<div class="text-lg font-black text-white font-manrope">The Fluid Architect</div>
+<p class="text-slate-500 font-manrope text-xs tracking-wide uppercase font-medium max-w-xs leading-relaxed">
+                    © 2024 The Fluid Architect. Atmospheric Precision in Finance.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-x-10 gap-y-6">
+<a class="text-slate-500 font-manrope text-xs tracking-wide uppercase font-medium hover:text-white transition-all duration-200" href="#">Security</a>
+<a class="text-slate-500 font-manrope text-xs tracking-wide uppercase font-medium hover:text-white transition-all duration-200" href="#">Privacy Policy</a>
+<a class="text-slate-500 font-manrope text-xs tracking-wide uppercase font-medium hover:text-white transition-all duration-200" href="#">Terms of Service</a>
+<a class="text-slate-500 font-manrope text-xs tracking-wide uppercase font-medium hover:text-white transition-all duration-200" href="#">Help Center</a>
+<a class="text-emerald-400 font-manrope text-xs tracking-wide uppercase font-medium hover:text-white transition-all duration-200" href="#">Global Reach</a>
+</div>
+<div class="mt-12 md:mt-0 flex gap-6">
+<div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-white text-sm">share</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-white text-sm">public</span>
+</div>
+</div>
+</div>
+<div class="border-t border-white/5 py-8 text-center">
+<p class="text-[10px] text-slate-600 font-medium tracking-widest uppercase">Engineered for High-Stake Performance</p>
+</div>
+</footer>
+</body></html>
