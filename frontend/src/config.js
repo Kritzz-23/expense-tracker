@@ -1,2 +1,1 @@
-export const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
-// forced update
+export const API_BASE = 'https://expense-tracker-api-4e5p.onrender.com';
