@@ -7,7 +7,7 @@ import HistoryList from './components/HistoryList';
 import Auth from './components/Auth';
 import InsightsCard from './components/InsightsCard';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = 'https://expense-tracker-api-4e5p.onrender.com';
 
 export function GlassCard({ id, title, subtitle, icon: Icon, children, className = "", delay = "0ms" }) {
   return (

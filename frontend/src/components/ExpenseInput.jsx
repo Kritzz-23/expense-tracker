@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { AlignLeft, Loader2, Plane, Send, Sparkles, Utensils, Wallet } from 'lucide-react';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = 'https://expense-tracker-api-4e5p.onrender.com';
 
 const QUICK_ADDS = [
   { label: '+₹100 Food', description: 'Quick lunch', amount: '100', icon: Utensils },

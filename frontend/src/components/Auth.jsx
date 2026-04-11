@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Loader2, ArrowRight } from 'lucide-react';
 
 // Hardcode API_BASE to match App.jsx since config.js might be gone or mismatched
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = 'https://expense-tracker-api-4e5p.onrender.com';
 
 function Auth({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
