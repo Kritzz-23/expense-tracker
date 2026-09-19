@@ -38,25 +38,25 @@ export function getBudgetMeta(status) {
     case 'exceeded':
       return {
         label: 'Budget exceeded',
-        tone: 'text-red-300 border-red-500/30 bg-red-500/10',
+        tone: 'text-red-700 border-red-200 bg-red-50',
         progressClass: 'bg-gradient-to-r from-red-500 to-orange-400',
       };
     case 'near_limit':
       return {
         label: 'Approaching budget limit',
-        tone: 'text-amber-200 border-amber-500/30 bg-amber-500/10',
+        tone: 'text-amber-800 border-amber-200 bg-amber-50',
         progressClass: 'bg-gradient-to-r from-amber-400 to-orange-400',
       };
     case 'healthy':
       return {
         label: 'Budget on track',
-        tone: 'text-emerald-200 border-emerald-500/30 bg-emerald-500/10',
+        tone: 'text-emerald-700 border-emerald-200 bg-emerald-50',
         progressClass: 'bg-gradient-to-r from-emerald-400 to-cyan-400',
       };
     default:
       return {
         label: 'Set a monthly budget',
-        tone: 'text-zinc-300 border-white/10 bg-white/5',
+        tone: 'text-on-surface-variant border-outline-variant/30 bg-surface-container-low',
         progressClass: 'bg-gradient-to-r from-blue-500 to-purple-500',
       };
   }

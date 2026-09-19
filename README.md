@@ -59,9 +59,12 @@ npm run dev
 The frontend should start on `http://localhost:5173`.
 
 ## Environment Variables
-Create a `.env` file in the `backend` folder with the following at a minimum:
-- `GROQ_API_KEY`: Your groq API key
-- `JWT_SECRET`: Secret for signing tokens.
+Copy `backend/.env.example` to `backend/.env` and fill in the following:
+
+- `GROQ_API_KEY`: Your Groq API key (from https://console.groq.com). Optional locally — without it, AI features fall back to keyword-based categorization and template summaries.
+- `SECRET_KEY`: Secret for signing JWT tokens. Must be set to a long random value in production.
+- `DATABASE_URL`: Database connection string. Omit to use local SQLite (`backend/finance.db`). On Render this is injected automatically as Postgres.
+- `CORS_ORIGINS`: Optional comma-separated list of allowed CORS origins. Defaults to `*` (all origins).
 
 ## Contribution
 1. Fork the framework.
