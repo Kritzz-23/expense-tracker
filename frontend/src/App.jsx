@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Activity, Sparkles, Wallet, BarChart3, Clock, CheckCircle2, LogOut, Lightbulb } from 'lucide-react';
+import { Activity, Sparkles, Wallet, BarChart3, Clock, CheckCircle2, LogOut, Lightbulb, Target, RefreshCw } from 'lucide-react';
+import { API_BASE } from './config';
 import ExpenseInput from './components/ExpenseInput';
 import SpendingChart from './components/SpendingChart';
 import HistoryList from './components/HistoryList';
 import Auth from './components/Auth';
 import InsightsCard from './components/InsightsCard';
-
-const API_BASE = 'https://expense-tracker-api-4e5p.onrender.com';
+import BudgetCard from './components/BudgetCard';
+import RecurringExpenses from './components/RecurringExpenses';
+import ChatWidget from './components/ChatWidget';
 
 export function GlassCard({ id, title, subtitle, icon: Icon, children, className = "", delay = "0ms" }) {
   return (
@@ -36,6 +38,9 @@ function App() {
   const [summary, setSummary] = useState({});
   const [insights, setInsights] = useState({});
   const [analytics, setAnalytics] = useState(null);
+  const [budget, setBudget] = useState(null);
+  const [recurring, setRecurring] = useState([]);
+  const [savingBudget, setSavingBudget] = useState(false);
   const [analyticsRange, setAnalyticsRange] = useState('weekly');
   const [analyticsDateFrom, setAnalyticsDateFrom] = useState(
     new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
@@ -56,16 +61,20 @@ function App() {
       if (historyFilters.dateFrom) historyQuery.append('date_from', historyFilters.dateFrom);
       if (historyFilters.dateTo) historyQuery.append('date_to', historyFilters.dateTo);
 
-      const [histRes, summRes, insightsRes, analyticsRes] = await Promise.all([
+      const [histRes, summRes, insightsRes, analyticsRes, budgetRes, recurringRes] = await Promise.all([
         axios.get(`${API_BASE}/history/?${historyQuery.toString()}`),
         axios.get(`${API_BASE}/summary/`),
         axios.get(`${API_BASE}/insights/`),
-        axios.get(`${API_BASE}/analytics?range=${analyticsRange}${analyticsRange === 'manual' ? `&date_from=${analyticsDateFrom}&date_to=${analyticsDateTo}` : ''}`)
+        axios.get(`${API_BASE}/analytics?range=${analyticsRange}${analyticsRange === 'manual' ? `&date_from=${analyticsDateFrom}&date_to=${analyticsDateTo}` : ''}`),
+        axios.get(`${API_BASE}/budget`),
+        axios.get(`${API_BASE}/recurring`),
       ]);
       setHistory(histRes.data);
       setSummary(summRes.data);
       setInsights(insightsRes.data);
       setAnalytics(analyticsRes.data);
+      setBudget(budgetRes.data);
+      setRecurring(recurringRes.data);
     } catch (e) {
       console.error(e);
       if (e.response?.status === 401) {
@@ -93,6 +102,18 @@ function App() {
     await fetchData();
   };
 
+  const handleSaveBudget = async (monthlyLimit) => {
+    setSavingBudget(true);
+    try {
+      const res = await axios.post(`${API_BASE}/budget`, { monthly_limit: monthlyLimit });
+      setBudget(res.data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSavingBudget(false);
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken(null);
@@ -100,6 +121,8 @@ function App() {
     setSummary({});
     setInsights({});
     setAnalytics(null);
+    setBudget(null);
+    setRecurring([]);
   };
 
   const scrollToSection = (id) => {
@@ -189,12 +212,16 @@ function App() {
                 <ExpenseInput onAdded={handleExpenseAdded} />
               </GlassCard>
 
+              <GlassCard title="Monthly Budget" subtitle="Set and track your monthly spending limit." icon={Target} delay="150ms">
+                <BudgetCard budget={budget} onSaveBudget={handleSaveBudget} saving={savingBudget} />
+              </GlassCard>
+
               <GlassCard title="Quick Stats" subtitle="Your total expenditure overview." icon={Wallet} delay="200ms">
                 <div className="flex items-center justify-center p-8 mt-2 rounded-2xl bg-surface-container-low border border-outline-variant/10 shadow-sm">
                   <div className="text-center group overflow-hidden">
                     <div className="text-xs font-bold text-outline mb-3 uppercase tracking-[0.2em]">Total Spent</div>
                     <div key={totalSpent} className="text-6xl font-black font-manrope text-on-surface tracking-tight relative animate-fade-in-up">
-                      <span className="absolute -left-6 top-2 text-3xl text-on-surface-variant font-bold">$</span>
+                      <span className="absolute -left-6 top-2 text-3xl text-on-surface-variant font-bold">₹</span>
                       {totalSpent.toFixed(2)}
                     </div>
                   </div>
@@ -228,8 +255,14 @@ function App() {
                   categories={Object.keys(summary)}
                 />
               </GlassCard>
+
+              <GlassCard title="Recurring Expenses" subtitle="Predicted upcoming payments based on your logged history." icon={RefreshCw} delay="500ms">
+                <RecurringExpenses recurring={recurring} />
+              </GlassCard>
             </div>
           </div>
+
+          <ChatWidget />
         </div>
       )}
     </div>

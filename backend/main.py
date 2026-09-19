@@ -1,3 +1,4 @@
+import logging
 import os
 from datetime import date, datetime, time, timedelta
 from typing import Optional
@@ -29,6 +30,10 @@ from models import Budget, Expense, User
 SECRET_KEY = os.getenv("SECRET_KEY", "super-secret-expense-tracker-key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7
+
+logger = logging.getLogger("uvicorn.error")
+if SECRET_KEY == "super-secret-expense-tracker-key":
+    logger.warning("SECRET_KEY is using the insecure default. Set SECRET_KEY in production.")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
@@ -120,9 +125,11 @@ def _get_user_budget(session: Session, user_id: int) -> Optional[Budget]:
 # --- APP SETUP ---
 app = FastAPI()
 
+cors_origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "*").split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -253,14 +260,32 @@ def get_summary(
 
 @app.post("/upload-csv/")
 async def upload_csv(file: UploadFile = File(...), current_user: User = Depends(get_current_user)):
-    df = pd.read_csv(file.file)
+    try:
+        df = pd.read_csv(file.file)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="Could not parse the uploaded CSV file.") from exc
+
+    required_columns = {"description", "amount"}
+    if not required_columns.issubset(set(df.columns)):
+        raise HTTPException(
+            status_code=400,
+            detail="CSV must contain 'description' and 'amount' columns.",
+        )
 
     with Session(engine) as session:
         for _, row in df.iterrows():
+            try:
+                amount = float(row["amount"])
+            except (ValueError, TypeError) as exc:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid amount value: {row['amount']!r}",
+                ) from exc
+
             category = categorize_expense(str(row["description"]))
             expense = Expense(
-                description=row["description"],
-                amount=float(row["amount"]),
+                description=str(row["description"]),
+                amount=amount,
                 category=category,
                 date=datetime.utcnow(),
                 user_id=current_user.id,
