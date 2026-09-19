@@ -39,6 +39,8 @@ dist/
 build/
 .npm
 package-lock.json
+!/package-lock.json
+!frontend/package-lock.json
 yarn.lock
 
 # IDE / Editor
@@ -61,3 +63,4 @@ htmlcov/
 *.db
 *.sqlite
 *.sqlite3
+.neon

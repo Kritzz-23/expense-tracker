@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Activity, Sparkles, Wallet, BarChart3, Clock, CheckCircle2, LogOut, Lightbulb, Target, RefreshCw } from 'lucide-react';
 import { API_BASE } from './config';
@@ -42,16 +42,27 @@ function App() {
   const [recurring, setRecurring] = useState([]);
   const [savingBudget, setSavingBudget] = useState(false);
   const [analyticsRange, setAnalyticsRange] = useState('weekly');
-  const [analyticsDateFrom, setAnalyticsDateFrom] = useState(
+  const [analyticsDateFrom, setAnalyticsDateFrom] = useState(() => (
     new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  );
-  const [analyticsDateTo, setAnalyticsDateTo] = useState(
+  ));
+  const [analyticsDateTo, setAnalyticsDateTo] = useState(() => (
     new Date().toISOString().split('T')[0]
-  );
+  ));
   const [historyFilters, setHistoryFilters] = useState({ search: '', category: 'all', dateFrom: '', dateTo: '' });
   const [latestExpense, setLatestExpense] = useState(null);
 
-  const fetchData = async () => {
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setHistory([]);
+    setSummary({});
+    setInsights({});
+    setAnalytics(null);
+    setBudget(null);
+    setRecurring([]);
+  }, []);
+
+  const fetchData = useCallback(async () => {
     try {
       if (!token) return;
 
@@ -81,7 +92,7 @@ function App() {
         handleLogout();
       }
     }
-  };
+  }, [analyticsDateFrom, analyticsDateTo, analyticsRange, handleLogout, historyFilters, token]);
 
   useEffect(() => {
     if (token) {
@@ -92,7 +103,7 @@ function App() {
     } else {
       delete axios.defaults.headers.common['Authorization'];
     }
-  }, [token, analyticsRange, analyticsDateFrom, analyticsDateTo, historyFilters]);
+  }, [fetchData, token]);
 
   const handleExpenseAdded = async (newExpense) => {
     setLatestExpense(newExpense);
@@ -112,17 +123,6 @@ function App() {
     } finally {
       setSavingBudget(false);
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setHistory([]);
-    setSummary({});
-    setInsights({});
-    setAnalytics(null);
-    setBudget(null);
-    setRecurring([]);
   };
 
   const scrollToSection = (id) => {
