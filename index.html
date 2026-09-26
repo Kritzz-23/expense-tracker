@@ -445,6 +445,275 @@
       font-size: 0.84rem;
       color: var(--text-muted);
     }
+
+    /* Auth & Session Styles */
+    .auth-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+    .user-avatar-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #18181B;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .user-info-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      text-align: left;
+    }
+    .user-name {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .user-role-label {
+      font-size: 0.72rem;
+      color: #10B981;
+      font-weight: 600;
+    }
+    .auth-btn-ghost {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.78rem;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: color 0.15s ease;
+    }
+    .auth-btn-ghost:hover {
+      color: #EF4444;
+      background: #FEE2E2;
+    }
+    .recruiter-demo-btn {
+      background: #F3F4F6;
+      border: 1px dashed #9CA3AF;
+      color: #1F2937;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .recruiter-demo-btn:hover {
+      background: #E5E7EB;
+      border-color: #4B5563;
+    }
+
+    /* Modal Backdrop & Dialog */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.18s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .auth-card-modal {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--border-subtle);
+      width: 100%;
+      max-width: 480px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header-section {
+      padding: 24px 24px 16px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .modal-header-section h2 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .modal-header-section p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .modal-close-x {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 2px 6px;
+      line-height: 1;
+      border-radius: 4px;
+    }
+    .modal-close-x:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+    .tab-pills-row {
+      display: flex;
+      background: var(--bg-subtle);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      margin: 16px 24px 0 24px;
+      gap: 4px;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .auth-tab-btn.active {
+      background: #FFFFFF;
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+    .modal-form-body {
+      padding: 20px 24px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .auth-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+    .auth-input-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .auth-text-field, .auth-select-field {
+      padding: 10px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      background: #FFFFFF;
+    }
+    .auth-text-field:focus, .auth-select-field:focus {
+      border-color: #18181B;
+      box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.08);
+    }
+    .auth-submit-btn {
+      margin-top: 6px;
+      padding: 12px;
+      background: #18181B;
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .auth-submit-btn:hover {
+      background: #27272A;
+    }
+    .recruiter-quick-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin: 0 24px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quick-card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quick-card-btn {
+      padding: 8px 12px;
+      background: #10B981;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .quick-card-btn:hover {
+      background: #059669;
+    }
+    .toast-popup {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #18181B;
+      color: #FFFFFF;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 2000;
+    }
+    .toast-popup.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -460,12 +729,117 @@
         </div>
       </a>
       <div class="header-nav">
-        <a href="https://kritzz-23.github.io/" class="nav-btn nav-btn-secondary">← Portfolio</a>
-        <a href="https://github.com/Kritzz-23/expense-tracker" target="_blank" class="nav-btn nav-btn-secondary">GitHub Repo 🐙</a>
+        <!-- Auth Container -->
+        <div id="authHeaderContainer" class="auth-container"></div>
+        <a href="https://kritzz-23.github.io/" class="nav-btn nav-btn-secondary">Portfolio</a>
+        <a href="https://github.com/Kritzz-23/expense-tracker" target="_blank" class="nav-btn nav-btn-secondary">GitHub 🐙</a>
         <a href="https://kritzz-23.github.io/SentinelAI/" class="nav-btn nav-btn-primary">SentinelAI 🚀</a>
       </div>
     </div>
   </header>
+
+  <!-- Auth Modal Dialog -->
+  <div id="authModal" class="modal-overlay">
+    <div class="auth-card-modal">
+      <div class="modal-header-section">
+        <div>
+          <h2 id="modalTitle">Financial Vault Access</h2>
+          <p id="modalSubtitle">Sign in to manage ledgers, budgets &amp; fiscal analytics</p>
+        </div>
+        <button id="modalCloseBtn" class="modal-close-x" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="tab-pills-row">
+        <button id="tabSignIn" class="auth-tab-btn active">Sign In</button>
+        <button id="tabSignUp" class="auth-tab-btn">Create Account</button>
+      </div>
+
+      <!-- Recruiter 1-Click Access Box -->
+      <div class="recruiter-quick-card">
+        <div class="quick-card-title">
+          <span>⚡</span>
+          <span>Interviewer / Recruiter 1-Click Pass</span>
+        </div>
+        <p style="font-size: 0.78rem; color: #64748B;">Instantly log in with pre-configured budget &amp; audit privileges:</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+          <button id="quickOwnerBtn" class="quick-card-btn" style="flex: 1;">Login as Account Holder</button>
+          <button id="quickAuditorBtn" class="quick-card-btn" style="background: #475569; flex: 1;">Login as Financial Auditor</button>
+        </div>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" class="modal-form-body">
+        <div class="auth-input-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="auth-text-field" placeholder="kritika@finance.io" value="kritika@finance.io" required>
+        </div>
+        <div class="auth-input-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="auth-text-field" placeholder="••••••••••••" value="demo12345" required>
+        </div>
+        <div class="auth-input-group">
+          <label for="loginRole">Account Role</label>
+          <select id="loginRole" class="auth-select-field">
+            <option value="Personal Account Holder">Personal Account Holder (Kritika Giri)</option>
+            <option value="Financial Auditor">Financial Auditor (Compliance & Reports)</option>
+            <option value="Family Budget Admin">Family Budget Admin</option>
+            <option value="Technical Interviewer">Technical Interviewer (Demo Superuser)</option>
+          </select>
+        </div>
+        <button type="submit" class="auth-submit-btn">
+          <span>Unlock Financial Ledger</span>
+          <span>&rarr;</span>
+        </button>
+      </form>
+
+      <!-- Sign Up Form (hidden by default) -->
+      <form id="signUpForm" class="modal-form-body" style="display: none;">
+        <div class="auth-input-group">
+          <label for="regName">Account Holder Name</label>
+          <input type="text" id="regName" class="auth-text-field" placeholder="e.g. Kritika Giri" required>
+        </div>
+        <div class="auth-input-group">
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" class="auth-text-field" placeholder="name@domain.com" required>
+        </div>
+        <div class="auth-input-group">
+          <label for="regCurrency">Base Currency</label>
+          <select id="regCurrency" class="auth-select-field">
+            <option value="USD">USD ($) — United States Dollar</option>
+            <option value="EUR">EUR (€) — Euro</option>
+            <option value="INR">INR (₹) — Indian Rupee</option>
+            <option value="GBP">GBP (£) — British Pound</option>
+          </select>
+        </div>
+        <div class="auth-input-group">
+          <label for="regRole">Account Tier</label>
+          <select id="regRole" class="auth-select-field">
+            <option value="Personal Account Holder">Personal Account Holder</option>
+            <option value="Family Budget Admin">Family Budget Admin</option>
+            <option value="Financial Auditor">Financial Auditor</option>
+          </select>
+        </div>
+        <div class="auth-input-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="auth-text-field" placeholder="Minimum 8 characters" required>
+        </div>
+        <button type="submit" class="auth-submit-btn" style="background: #10B981;">
+          <span>Create Account & Authorize JWT</span>
+          <span>&check;</span>
+        </button>
+      </form>
+
+      <div style="padding: 0 24px 16px 24px; font-size: 0.73rem; color: #94A3B8; text-align: center;">
+        🔒 Encrypted Session Simulated (Client JWT) &bull; Zero Backend Latency for Interview Demos
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="authToast" class="toast-popup">
+    <span id="toastIcon">💳</span>
+    <span id="toastMessage">Authenticated successfully</span>
+  </div>
 
   <!-- Main Body -->
   <main>
@@ -841,6 +1215,194 @@
     // Boot
     loadTransactions();
     render();
+
+    // --- Authentication Engine (Simulated JWT + RBAC) ---
+    const AUTH_STORAGE_KEY = 'expense_tracker_auth_user';
+
+    const authModal = document.getElementById('authModal');
+    const authHeaderContainer = document.getElementById('authHeaderContainer');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const tabSignIn = document.getElementById('tabSignIn');
+    const tabSignUp = document.getElementById('tabSignUp');
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const quickOwnerBtn = document.getElementById('quickOwnerBtn');
+    const quickAuditorBtn = document.getElementById('quickAuditorBtn');
+    const authToast = document.getElementById('authToast');
+    const toastIcon = document.getElementById('toastIcon');
+    const toastMessage = document.getElementById('toastMessage');
+
+    function showToast(msg, icon = '💳') {
+      toastIcon.textContent = icon;
+      toastMessage.textContent = msg;
+      authToast.classList.add('visible');
+      setTimeout(() => authToast.classList.remove('visible'), 3600);
+    }
+
+    function generateMockJwt(user) {
+      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+      const payload = btoa(JSON.stringify({
+        sub: user.email,
+        name: user.name,
+        role: user.role,
+        currency: user.currency || "USD",
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + 86400
+      }));
+      const signature = btoa("valid_signature_" + Math.random().toString(36).substring(2));
+      return `${header}.${payload}.${signature}`;
+    }
+
+    function getStoredUser() {
+      try {
+        const data = localStorage.getItem(AUTH_STORAGE_KEY);
+        return data ? JSON.parse(data) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function setStoredUser(user) {
+      if (!user) {
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+      } else {
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+      }
+      renderHeaderAuth();
+    }
+
+    function renderHeaderAuth() {
+      const user = getStoredUser();
+      if (user) {
+        const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'KG';
+        authHeaderContainer.innerHTML = `
+          <div class="user-profile-badge">
+            <div class="user-avatar-circle">${initials}</div>
+            <div class="user-info-text">
+              <span class="user-name">${user.name}</span>
+              <span class="user-role-label">${user.role}</span>
+            </div>
+            <button id="logoutBtn" class="auth-btn-ghost" title="Sign Out">Sign Out</button>
+          </div>
+        `;
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+          setStoredUser(null);
+          showToast('Signed out of Smart Expense Tracker', '👋');
+        });
+      } else {
+        authHeaderContainer.innerHTML = `
+          <button id="headerLoginBtn" class="nav-btn nav-btn-secondary" style="cursor: pointer;">Sign In</button>
+          <button id="headerDemoBtn" class="recruiter-demo-btn">
+            <span>⚡</span>
+            <span>Recruiter Demo</span>
+          </button>
+        `;
+        document.getElementById('headerLoginBtn').addEventListener('click', () => openModal(false));
+        document.getElementById('headerDemoBtn').addEventListener('click', () => {
+          performLogin({
+            name: "Financial Auditor",
+            email: "auditor@deloitte-fiscal.com",
+            role: "Financial Auditor",
+            currency: "USD"
+          }, "Logged in as Financial Auditor (Compliance View)!");
+        });
+      }
+    }
+
+    function openModal(isSignUp = false) {
+      authModal.classList.add('active');
+      switchTab(isSignUp ? 'signup' : 'signin');
+    }
+
+    function closeModal() {
+      authModal.classList.remove('active');
+    }
+
+    function switchTab(tab) {
+      if (tab === 'signin') {
+        tabSignIn.classList.add('active');
+        tabSignUp.classList.remove('active');
+        signInForm.style.display = 'flex';
+        signUpForm.style.display = 'none';
+        modalTitle.textContent = 'Financial Vault Access';
+        modalSubtitle.textContent = 'Sign in to manage ledgers, budgets & fiscal analytics';
+      } else {
+        tabSignUp.classList.add('active');
+        tabSignIn.classList.remove('active');
+        signUpForm.style.display = 'flex';
+        signInForm.style.display = 'none';
+        modalTitle.textContent = 'Create Financial Profile';
+        modalSubtitle.textContent = 'Start tracking expenses with intelligent budget thresholds';
+      }
+    }
+
+    function performLogin(userData, successMsg) {
+      const token = generateMockJwt(userData);
+      const user = { ...userData, token, loggedInAt: new Date().toISOString() };
+      setStoredUser(user);
+      closeModal();
+      showToast(successMsg || `Welcome back, ${user.name}!`, '💳');
+    }
+
+    // Event Listeners for Auth
+    modalCloseBtn.addEventListener('click', closeModal);
+    authModal.addEventListener('click', (e) => {
+      if (e.target === authModal) closeModal();
+    });
+
+    tabSignIn.addEventListener('click', () => switchTab('signin'));
+    tabSignUp.addEventListener('click', () => switchTab('signup'));
+
+    quickOwnerBtn.addEventListener('click', () => {
+      performLogin({
+        name: "Kritika Giri (Account Holder)",
+        email: "kritika@finance.io",
+        role: "Personal Account Holder",
+        currency: "USD"
+      }, "⚡ Recruiter Pass: Authenticated as Account Holder");
+    });
+
+    quickAuditorBtn.addEventListener('click', () => {
+      performLogin({
+        name: "Financial Auditor",
+        email: "auditor@deloitte-fiscal.com",
+        role: "Financial Auditor",
+        currency: "USD"
+      }, "⚡ Recruiter Pass: Authenticated as Financial Auditor");
+    });
+
+    signInForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const role = document.getElementById('loginRole').value;
+      const name = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      performLogin({ name, email, role, currency: "USD" });
+    });
+
+    signUpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const currency = document.getElementById('regCurrency').value;
+      const role = document.getElementById('regRole').value;
+      performLogin({ name, email, role, currency }, `Account initialized! Welcome, ${name}`);
+    });
+
+    // Check existing or initialize default demo session so recruiter is never blocked
+    if (!getStoredUser()) {
+      setStoredUser({
+        name: "Kritika Giri",
+        email: "kritika@finance.io",
+        role: "Personal Account Holder",
+        currency: "USD",
+        token: generateMockJwt({ email: "kritika@finance.io", name: "Kritika Giri", role: "Personal Account Holder" }),
+        loggedInAt: new Date().toISOString()
+      });
+    } else {
+      renderHeaderAuth();
+    }
   </script>
 </body>
 </html>
