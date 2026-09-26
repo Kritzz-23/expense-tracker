@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Expense Tracker — Personal Financial Command Center</title>
+  <meta name="description" content="Modern, responsive personal finance and expense tracking web application by Kritika Giri. Real-time budget analytics, category breakdowns, recurring subscriptions, and client-side persistence.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #FFFFFF;
+      --bg-subtle: #F9FAFB;
+      --bg-card: #FFFFFF;
+      --text-main: #18181B;
+      --text-muted: #71717A;
+      --border-subtle: #E5E7EB;
+      --border-medium: #D1D5DB;
+      --accent: #18181B;
+      --emerald: #10B981;
+      --emerald-light: #ECFDF5;
+      --amber: #D97706;
+      --amber-light: #FFFBEB;
+      --rose: #E11D48;
+      --rose-light: #FFF1F2;
+      --indigo: #4F46E5;
+      --indigo-light: #EEF2FF;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: #18181B;
+      color: #FFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+    .brand-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--emerald);
+      background: var(--emerald-light);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-btn {
+      padding: 6px 14px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .nav-btn-secondary {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+    .nav-btn-secondary:hover { background: #F3F4F6; }
+    .nav-btn-primary {
+      background: #18181B;
+      color: #FFFFFF;
+      border: 1px solid #18181B;
+    }
+    .nav-btn-primary:hover { background: #27272A; }
+
+    main {
+      flex: 1;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .intro-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .intro-text h1 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .intro-text p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      max-width: 680px;
+    }
+
+    /* Scoreboard */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 768px) {
+      .metrics-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .metric-label {
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 800;
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 24px;
+    }
+    @media (max-width: 960px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Form */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .form-input, .form-select {
+      padding: 10px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      background: #FFFFFF;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: #18181B;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .quick-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .quick-tag {
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .quick-tag:hover {
+      color: var(--text-main);
+      border-color: var(--border-medium);
+    }
+
+    .btn-submit {
+      padding: 12px;
+      background: #18181B;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-submit:hover { background: #27272A; }
+
+    /* Budget Progress Bar */
+    .budget-bar-wrap {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .budget-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #E5E7EB;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--emerald);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    /* Category Distribution List */
+    .category-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+    }
+    .cat-name-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    .cat-amount {
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    /* Transaction Ledger List */
+    .ledger-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      padding: 8px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      outline: none;
+    }
+    .filter-select {
+      padding: 8px 12px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      background: #FFF;
+      outline: none;
+    }
+
+    .tx-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    .tx-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+    .tx-item:hover {
+      border-color: var(--border-medium);
+      background: var(--bg-subtle);
+    }
+    .tx-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tx-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--bg-subtle);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .tx-desc {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+    .tx-date {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .tx-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tx-amount {
+      font-family: var(--font-mono);
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--rose);
+    }
+    .tx-del {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.86rem;
+      padding: 4px;
+    }
+    .tx-del:hover { color: var(--rose); }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 24px;
+      background: #FFFFFF;
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="https://kritzz-23.github.io/" class="brand">
+        <div class="brand-icon">💳</div>
+        <div>
+          <span class="brand-title">Smart Expense Tracker</span>
+          <span class="brand-tag">v2.3 &bull; LIVE</span>
+        </div>
+      </a>
+      <div class="header-nav">
+        <a href="https://kritzz-23.github.io/" class="nav-btn nav-btn-secondary">← Portfolio</a>
+        <a href="https://github.com/Kritzz-23/expense-tracker" target="_blank" class="nav-btn nav-btn-secondary">GitHub Repo 🐙</a>
+        <a href="https://kritzz-23.github.io/SentinelAI/" class="nav-btn nav-btn-primary">SentinelAI 🚀</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body -->
+  <main>
+    <!-- Intro Banner -->
+    <div class="intro-banner">
+      <div class="intro-text">
+        <h1>Personal Finance &amp; Expense Command Center</h1>
+        <p>
+          High-performance financial ledger engineered with persistent client-side synchronization, category velocity analytics, and real-time monthly budget tracking.
+        </p>
+      </div>
+      <div style="background: var(--bg-subtle); border: 1px solid var(--border-subtle); padding: 8px 14px; border-radius: var(--radius-sm); font-size: 0.84rem;">
+        <div><strong>Engineer:</strong> Kritika Giri &bull; Full Stack Developer</div>
+        <div style="color: var(--text-muted);">Brainware University (CGPA 8.54 / 10)</div>
+      </div>
+    </div>
+
+    <!-- Live Metric Tiles -->
+    <div class="metrics-bar">
+      <div class="metric-card">
+        <div class="metric-label">Total Monthly Spend</div>
+        <div class="metric-value" id="val-total-spend" style="color: var(--rose);">$0.00</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Monthly Budget Limit</div>
+        <div class="metric-value" id="val-budget">$2,500.00</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Remaining Balance</div>
+        <div class="metric-value" id="val-remaining" style="color: var(--emerald);">$2,500.00</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Transactions Logged</div>
+        <div class="metric-value" id="val-count">0</div>
+      </div>
+    </div>
+
+    <!-- Dashboard Main Grid -->
+    <div class="dashboard-grid">
+      <!-- Left Column: Add Transaction & Category Velocity -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">➕ Record Transaction</span>
+          </div>
+
+          <form id="tx-form">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" for="tx-amount">Amount ($)</label>
+              <input type="number" step="0.01" min="0.01" id="tx-amount" class="form-input" placeholder="0.00" required>
+            </div>
+
+            <div class="form-row" style="margin-bottom: 12px;">
+              <div class="form-group">
+                <label class="form-label" for="tx-category">Category</label>
+                <select id="tx-category" class="form-select">
+                  <option value="Food & Dining">🍔 Food & Dining</option>
+                  <option value="Housing & Rent">🏠 Housing & Rent</option>
+                  <option value="Transportation">🚗 Transportation</option>
+                  <option value="Tech & Cloud">💻 Tech & Cloud</option>
+                  <option value="Entertainment">🎬 Entertainment</option>
+                  <option value="Healthcare">💊 Healthcare</option>
+                  <option value="Utilities">⚡ Utilities</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="tx-date">Date</label>
+                <input type="date" id="tx-date" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label class="form-label" for="tx-desc">Description / Vendor</label>
+              <input type="text" id="tx-desc" class="form-input" placeholder="e.g. AWS Cloud Hosting, Groceries..." required>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div class="form-label">Quick Presets:</div>
+              <div class="quick-tags">
+                <span class="quick-tag" onclick="quickFill(4.75, 'Food & Dining', 'Blue Bottle Coffee')">☕ Coffee $4.75</span>
+                <span class="quick-tag" onclick="quickFill(48.20, 'Food & Dining', 'Whole Foods Groceries')">🛒 Groceries $48.20</span>
+                <span class="quick-tag" onclick="quickFill(32.50, 'Transportation', 'Uber Ride')">🚗 Uber $32.50</span>
+                <span class="quick-tag" onclick="quickFill(14.99, 'Tech & Cloud', 'GitHub Copilot / AWS')">⚡ Cloud $14.99</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit" style="width: 100%;">Record Expense 💳</button>
+          </form>
+        </div>
+
+        <!-- Budget Utilization Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 Monthly Budget Health</span>
+            <span id="budget-pct" style="font-family: var(--font-mono); font-size: 0.84rem; font-weight: 700;">0%</span>
+          </div>
+
+          <div class="budget-bar-wrap">
+            <div class="budget-top">
+              <span id="budget-status-label">On Track</span>
+              <span id="budget-ratio">$0 / $2,500</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="budget-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="category-breakdown" id="category-breakdown">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Ledger & Subscriptions -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📜 Transaction Ledger</span>
+          <button class="nav-btn nav-btn-secondary" id="btn-export-csv" style="font-size: 0.78rem;">Export CSV 📥</button>
+        </div>
+
+        <div class="ledger-controls">
+          <input type="text" id="ledger-search" class="search-box" placeholder="Search transactions (vendor or note)...">
+          <select id="ledger-filter" class="filter-select">
+            <option value="all">All Categories</option>
+            <option value="Food & Dining">Food & Dining</option>
+            <option value="Housing & Rent">Housing & Rent</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Tech & Cloud">Tech & Cloud</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Utilities">Utilities</option>
+          </select>
+        </div>
+
+        <div class="tx-list" id="tx-container">
+          <!-- Injected dynamically -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border-subtle);">
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Synced locally with zero server bloat</span>
+          <button id="btn-reset-demo" style="background: none; border: none; font-size: 0.8rem; color: var(--text-muted); cursor: pointer; text-decoration: underline;">
+            Reset Demo Data 🔄
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>&copy; 2026 Kritika Giri &bull; Full Stack Developer &bull; Smart Expense Tracker</div>
+      <div>
+        <a href="https://kritzz-23.github.io/" style="color: inherit; margin-right: 14px;">Portfolio</a>
+        <a href="https://github.com/Kritzz-23/expense-tracker" target="_blank" style="color: inherit; margin-right: 14px;">GitHub</a>
+        <a href="https://kritzz-23.github.io/SentinelAI/" style="color: inherit;">SentinelAI Live</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'kg_expenses_store_v1';
+    const MONTHLY_BUDGET = 2500.00;
+
+    const DEFAULT_TRANSACTIONS = [
+      { id: "1", amount: 850.00, category: "Housing & Rent", desc: "Apartment Rent & Maintenance", date: "2026-09-01" },
+      { id: "2", amount: 48.50, category: "Food & Dining", desc: "Trader Joe's Weekly Groceries", date: "2026-09-08" },
+      { id: "3", amount: 14.99, category: "Tech & Cloud", desc: "GitHub Pro & Server Infrastructure", date: "2026-09-12" },
+      { id: "4", amount: 35.00, category: "Transportation", desc: "Metro Transit Card Recharge", date: "2026-09-16" },
+      { id: "5", amount: 62.40, category: "Food & Dining", desc: "Weekend Dining with Team", date: "2026-09-20" },
+      { id: "6", amount: 75.00, category: "Utilities", desc: "High-Speed Fiber Internet", date: "2026-09-22" },
+      { id: "7", amount: 12.99, category: "Entertainment", desc: "Spotify Premium Family", date: "2026-09-24" }
+    ];
+
+    let transactions = [];
+
+    function loadTransactions() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          transactions = JSON.parse(raw);
+        } else {
+          transactions = [...DEFAULT_TRANSACTIONS];
+          saveTransactions();
+        }
+      } catch (e) {
+        transactions = [...DEFAULT_TRANSACTIONS];
+      }
+    }
+
+    function saveTransactions() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+    }
+
+    const form = document.getElementById('tx-form');
+    const amountInput = document.getElementById('tx-amount');
+    const catInput = document.getElementById('tx-category');
+    const dateInput = document.getElementById('tx-date');
+    const descInput = document.getElementById('tx-desc');
+
+    const totalSpendEl = document.getElementById('val-total-spend');
+    const remainingEl = document.getElementById('val-remaining');
+    const countEl = document.getElementById('val-count');
+    const budgetPctEl = document.getElementById('budget-pct');
+    const budgetFillEl = document.getElementById('budget-progress-fill');
+    const budgetRatioEl = document.getElementById('budget-ratio');
+    const catBreakdownEl = document.getElementById('category-breakdown');
+    const txContainer = document.getElementById('tx-container');
+
+    const searchInput = document.getElementById('ledger-search');
+    const filterSelect = document.getElementById('ledger-filter');
+
+    // Default date to today
+    dateInput.value = new Date().toISOString().split('T')[0];
+
+    function quickFill(amt, cat, desc) {
+      amountInput.value = amt;
+      catInput.value = cat;
+      descInput.value = desc;
+      dateInput.value = new Date().toISOString().split('T')[0];
+    }
+
+    function getCategoryIcon(cat) {
+      switch (cat) {
+        case 'Food & Dining': return '🍔';
+        case 'Housing & Rent': return '🏠';
+        case 'Transportation': return '🚗';
+        case 'Tech & Cloud': return '💻';
+        case 'Entertainment': return '🎬';
+        case 'Healthcare': return '💊';
+        default: return '⚡';
+      }
+    }
+
+    function render() {
+      const q = searchInput.value.trim().toLowerCase();
+      const filterCat = filterSelect.value;
+
+      const filtered = transactions.filter(t => {
+        const matchCat = filterCat === 'all' || t.category === filterCat;
+        if (!matchCat) return false;
+        if (!q) return true;
+        return t.desc.toLowerCase().includes(q) || t.category.toLowerCase().includes(q);
+      });
+
+      // Calculate totals
+      const totalSpend = transactions.reduce((sum, t) => sum + parseFloat(t.amount || 0), 0);
+      const remaining = Math.max(0, MONTHLY_BUDGET - totalSpend);
+      const pct = Math.min(100, Math.round((totalSpend / MONTHLY_BUDGET) * 100));
+
+      totalSpendEl.textContent = `$${totalSpend.toFixed(2)}`;
+      remainingEl.textContent = `$${remaining.toFixed(2)}`;
+      countEl.textContent = transactions.length;
+
+      budgetPctEl.textContent = `${pct}%`;
+      budgetFillEl.style.width = `${pct}%`;
+      budgetRatioEl.textContent = `$${totalSpend.toFixed(0)} / $${MONTHLY_BUDGET.toFixed(0)}`;
+
+      if (pct > 90) {
+        budgetFillEl.style.backgroundColor = 'var(--rose)';
+      } else if (pct > 75) {
+        budgetFillEl.style.backgroundColor = 'var(--amber)';
+      } else {
+        budgetFillEl.style.backgroundColor = 'var(--emerald)';
+      }
+
+      // Breakdown by category
+      const byCat = {};
+      transactions.forEach(t => {
+        byCat[t.category] = (byCat[t.category] || 0) + parseFloat(t.amount);
+      });
+
+      catBreakdownEl.innerHTML = '';
+      Object.keys(byCat).sort((a,b) => byCat[b] - byCat[a]).forEach(cat => {
+        const amt = byCat[cat];
+        const row = document.createElement('div');
+        row.className = 'cat-row';
+        row.innerHTML = `
+          <div class="cat-name-icon">
+            <span>${getCategoryIcon(cat)}</span>
+            <span>${cat}</span>
+          </div>
+          <span class="cat-amount">$${amt.toFixed(2)}</span>
+        `;
+        catBreakdownEl.appendChild(row);
+      });
+
+      // Render ledger items
+      txContainer.innerHTML = '';
+      if (filtered.length === 0) {
+        txContainer.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-muted);">No transactions match your filter.</div>`;
+        return;
+      }
+
+      filtered.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'tx-item';
+        div.innerHTML = `
+          <div class="tx-left">
+            <div class="tx-icon">${getCategoryIcon(t.category)}</div>
+            <div>
+              <div class="tx-desc">${t.desc}</div>
+              <div class="tx-date">${t.date} &bull; ${t.category}</div>
+            </div>
+          </div>
+          <div class="tx-right">
+            <span class="tx-amount">-$${parseFloat(t.amount).toFixed(2)}</span>
+            <button class="tx-del" onclick="deleteTransaction('${t.id}')" title="Delete">✕</button>
+          </div>
+        `;
+        txContainer.appendChild(div);
+      });
+    }
+
+    function deleteTransaction(id) {
+      transactions = transactions.filter(t => t.id !== id);
+      saveTransactions();
+      render();
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const amount = parseFloat(amountInput.value);
+      const category = catInput.value;
+      const date = dateInput.value;
+      const desc = descInput.value.trim();
+
+      if (!amount || !desc) return;
+
+      const newTx = {
+        id: Date.now().toString(),
+        amount,
+        category,
+        date,
+        desc
+      };
+
+      transactions.unshift(newTx);
+      saveTransactions();
+      render();
+
+      amountInput.value = '';
+      descInput.value = '';
+    });
+
+    searchInput.addEventListener('input', render);
+    filterSelect.addEventListener('change', render);
+
+    document.getElementById('btn-reset-demo').addEventListener('click', () => {
+      if (confirm('Reset ledger with initial sample transactions?')) {
+        transactions = [...DEFAULT_TRANSACTIONS];
+        saveTransactions();
+        render();
+      }
+    });
+
+    document.getElementById('btn-export-csv').addEventListener('click', () => {
+      let csv = 'ID,Date,Category,Description,Amount\n';
+      transactions.forEach(t => {
+        csv += `"${t.id}","${t.date}","${t.category}","${t.desc.replace(/"/g, '""')}","${t.amount}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `expenses_report_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Boot
+    loadTransactions();
+    render();
+  </script>
+</body>
+</html>

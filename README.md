@@ -1,4 +1,10 @@
-# AI-Driven Expense Tracker
+# 💳 AI-Driven Expense Tracker
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-10B981?style=for-the-badge&logo=github)](https://kritzz-23.github.io/expense-tracker/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)](https://react.dev)
+
+> 🚀 **Interactive Live Application:** [https://kritzz-23.github.io/expense-tracker/](https://kritzz-23.github.io/expense-tracker/)
 
 An intelligent, full-stack expense tracking application designed to help users manage their finances smoothly with the help of artificial intelligence.
 
